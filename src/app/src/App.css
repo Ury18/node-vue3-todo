@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 4em;
+}
+
+#app {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-weight: normal;
+    max-width: var(--content-max-width);
+}
