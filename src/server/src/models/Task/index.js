@@ -12,7 +12,7 @@ const Task = new Schema({
         type: String,
         required: true,
         enum: ["active", "completed"],
-        default: "pending"
+        default: "active"
     },
 
 })

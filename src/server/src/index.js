@@ -2,7 +2,7 @@ const express = require("express")
 const port = 3080
 const bodyParser = require('body-parser')
 const mongoose = require("mongoose")
-const package = require('./package.json')
+const package = require('../package.json')
 const http = require("http")
 const { TaskRouter } = require("./routes")
 
