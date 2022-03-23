@@ -1,59 +1,50 @@
 const Task = require('./index')
 
 logic = {
-    getTasks() {
-        return Task.find({}).select('-__v').lean()
-            .then(tasks => {
-                tasks.forEach(task => {
-                    task.id = task._id.toString()
-                    delete task._id
-                })
-                return tasks
-            })
+    async getTasks() {
+        let tasks = await Task.find({}).select('-__v').lean()
+        tasks.forEach(task => {
+            task.id = task._id.toString()
+            delete task._id
+        })
+        return tasks
     },
 
-    createTask(taskData) {
+    async createTask(taskData) {
         let task = new Task(taskData)
 
-        return task.save()
-            .then(task => {
-                return Task.findById(task._id).select('-__v').lean()
-                    .then(task => {
-                        task.id = task._id
-                        delete task._id
-                        return task
-                    })
-            })
+        task = await task.save()
+        task = await Task.findById(task._id).select('-__v').lean()
+        task.id = task._id
+        delete task._id
+        return task
 
     },
 
-    updateTask(taskId, taskData) {
+    async updateTask(taskId, taskData) {
 
-        return Task.findById(taskId)
-            .then(task => {
-                var keys = Object.keys(taskData)
+        let task = await Task.findById(taskId)
+        var keys = Object.keys(taskData)
 
-                keys.forEach(key => {
-                    task[key] = taskData[key]
-                });
+        keys.forEach(key => {
+            task[key] = taskData[key]
+        });
 
-                return task.save()
-                    .then(task => {
-                        return Task.findById(taskId).select('-__v').lean()
-                            .then(task => {
-                                task.id = task._id
-                                delete task._id
-                                return task
-                            })
-                    })
-            })
+        task = await task.save()
+        task = await Task.findById(taskId).select('-__v').lean()
+        task.id = task._id
+        delete task._id
+        return task
     },
 
-    deleteTask(taskId) {
-        return Task.findById(taskId)
-            .then(task => {
-                return task.remove()
-            })
+    async deleteTask(taskId) {
+        let task = await Task.findById(taskId)
+        return await task.remove()
+    },
+
+    async deleteMultipleTasks(taskIds) {
+        let tasks = await Task.deleteMany({ _id: taskIds })
+        return tasks
     }
 
 }

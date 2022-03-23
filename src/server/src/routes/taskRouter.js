@@ -34,6 +34,19 @@ taskRouter.route("/")
         }
 
     })
+    .delete((req, res) => {
+        try {
+            logic.deleteMultipleTasks(req.body)
+                .then(() => {
+                    res.status(200).send()
+                })
+                .catch(({ message }) => {
+                    res.status(400).json({ error: message })
+                })
+        } catch ({ message }) {
+            res.status(400).json({ error: message })
+        }
+    })
 
 taskRouter.route("/:taskId")
     .put((req, res) => {
@@ -54,7 +67,7 @@ taskRouter.route("/:taskId")
     .delete((req, res) => {
         try {
             logic.deleteTask(req.params.taskId)
-                .then((task) => {
+                .then(() => {
                     res.status(200).send()
                 })
                 .catch(({ message }) => {
