@@ -1,5 +1,6 @@
 <script >
 export default {
+    emits: ["creation"],
     data() {
         return {
             title: "",
@@ -13,28 +14,50 @@ export default {
             this.status = newStatus
         },
         clearTask(e) {
-            e.preventDefault()
+            if(e) e.preventDefault()
             this.title = ""
             this.status = "active"
         },
+        async submit(e) {
+            e.preventDefault();
+            let res = await fetch(
+                "http://localhost:3080/api/tasks",
+                {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        title: this.title,
+                        status: this.status
+                    })
+                }
+            )
+            if(res.status == 200 ) {
+                this.clearTask()
+                this.$emit("creation")
+            } else {
+                //Show error popup
+            }
+        }
     },
 }
 
 </script>
 
 <template>
-    <form>
-        <button id="status-toggle" :class="status" @click="toggleStatus" />
+    <form :class="status">
+        <button type="submit" @click="submit" />
+        <button id="status-toggle"  @click="toggleStatus" />
         <input v-model="title" />
         <button id="clear" @click="clearTask" />
     </form>
 </template>
 
 <style scoped>
-
 form {
-    margin-top: 2em;
-    margin-bottom: 1em;
+    margin-top: 3em;
+    margin-bottom: 2em;
     display: flex;
     align-items: center;
     padding: 1em 1.5em;
@@ -59,7 +82,7 @@ form input {
     overflow: hidden;
 }
 
-form:hover #clear{
+form:hover #clear {
     opacity: 1;
 }
 
@@ -112,15 +135,20 @@ form:hover #clear{
     margin: auto;
 }
 
-#status-toggle.completed {
+form.completed input {
+    text-decoration: line-through;
+    color: var(--font-color-line-through);
+}
+
+form.completed #status-toggle {
     background: var(--check-background);
 }
 
-#status-toggle.completed:before {
+
+form.completed #status-toggle:before {
     background: url(src/assets/images/icon-check.svg);
     background-repeat: no-repeat;
     background-position: center;
 }
-
 </style>
 
