@@ -2,8 +2,7 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 5em;
-    padding-bottom: 0;
+    padding: 5em 1em 0 1em;
 }
 
 #app {
@@ -12,4 +11,10 @@ body {
     flex-direction: column;
     font-weight: normal;
     max-width: var(--content-max-width);
+}
+
+@media (max-width: 375px) {
+    body {
+        padding: 3em 1em 0 1em;
+    }
 }

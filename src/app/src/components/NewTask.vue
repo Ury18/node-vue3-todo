@@ -14,7 +14,7 @@ export default {
             this.status = newStatus
         },
         clearTask(e) {
-            if(e) e.preventDefault()
+            if (e) e.preventDefault()
             this.title = ""
             this.status = "active"
         },
@@ -33,7 +33,7 @@ export default {
                     })
                 }
             )
-            if(res.status == 200 ) {
+            if (res.status == 200) {
                 this.clearTask()
                 this.$emit("creation")
             } else {
@@ -48,7 +48,7 @@ export default {
 <template>
     <form :class="status">
         <button type="submit" @click="submit" />
-        <button id="status-toggle"  @click="toggleStatus" />
+        <button id="status-toggle" @click="toggleStatus" />
         <input v-model="title" />
         <button id="clear" @click="clearTask" />
     </form>
@@ -63,8 +63,16 @@ form {
     padding: 1em 1.5em;
     background-color: var(--color-background-soft);
     border-radius: 5px;
-    -webkit-box-shadow: 5px 5px 27px 5px rgba(0, 0, 0, 0.49);
-    box-shadow: 5px 5px 27px 5px rgba(0, 0, 0, 0.49);
+    -webkit-box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
+    box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
+}
+
+@media (max-width: 375px) {
+    form {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 0.7em 1em;
+    }
 }
 
 form button[type="submit"] {
@@ -103,12 +111,12 @@ form:hover #clear {
 }
 
 #clear:hover {
-    filter: grayscale(100%) invert(1);
+    transform: scale(1.4);
 }
 
 #status-toggle {
     margin-right: 1em;
-    background: var(--very-dark-gray-blue);
+    background: var(--font-color-line-through);
     width: 30px;
     height: 30px;
     position: relative;
@@ -119,7 +127,6 @@ form:hover #clear {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: filter 0.2s ease;
 }
 
 #status-toggle:hover {
@@ -128,11 +135,27 @@ form:hover #clear {
 
 #status-toggle:before {
     content: "";
-    background: hsl(235, 21%, 11%);
+    background: var(--color-background-soft);
     width: 26px;
     height: 26px;
     border-radius: 50%;
     margin: auto;
+}
+
+@media (max-width: 375px) {
+    #status-toggle {
+        width: 25px;
+        height: 25px;
+    }
+    #status-toggle:before {
+        width: 23px;
+        height: 23px;
+    }
+
+    #clear {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 form.completed input {
@@ -143,7 +166,6 @@ form.completed input {
 form.completed #status-toggle {
     background: var(--check-background);
 }
-
 
 form.completed #status-toggle:before {
     background: url(src/assets/images/icon-check.svg);

@@ -22,6 +22,7 @@ export default {
 </template>
 
 <style scoped>
+
 header {
     width: 100%;
     margin: auto;
@@ -33,6 +34,12 @@ h1 {
     color: var(--header-font-color);
     font-weight: var(--font-weight-bold);
     letter-spacing: .4em;
+}
+
+@media(max-width: 375px) {
+    h1 {
+        font-size: 1.7em;
+    }
 }
 </style>
 

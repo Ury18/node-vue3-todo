@@ -88,7 +88,13 @@ form {
     border-bottom: 1px solid var(--font-color-line-through);
 }
 
-form:first-child {
+@media(max-width: 375px) {
+    form {
+        padding:  0.7em 1em;
+    }
+}
+
+li:first-child form{
     border-radius: 5px 5px 0 0;
 }
 
@@ -127,12 +133,12 @@ form:hover #delete {
 }
 
 #delete:hover {
-    filter: grayscale(100%) invert(1);
+    transform: scale(1.4);
 }
 
 #status-toggle {
     margin-right: 1em;
-    background: var(--very-dark-gray-blue);
+    background: var(--check-background-empty);
     width: 30px;
     height: 30px;
     position: relative;
@@ -143,7 +149,6 @@ form:hover #delete {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: filter 0.2s ease;
 }
 
 #status-toggle:hover {
@@ -152,12 +157,29 @@ form:hover #delete {
 
 #status-toggle:before {
     content: "";
-    background: hsl(235, 21%, 11%);
+    background: var(--color-background-soft);
     width: 26px;
     height: 26px;
     border-radius: 50%;
     margin: auto;
 }
+
+@media (max-width: 375px) {
+    #status-toggle {
+        width: 25px;
+        height: 25px;
+    }
+    #status-toggle:before {
+        width: 23px;
+        height: 23px;
+    }
+
+    #delete {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 form.completed p {
     text-decoration: line-through;
     color: var(--font-color-line-through);

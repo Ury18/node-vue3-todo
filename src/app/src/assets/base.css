@@ -1,10 +1,10 @@
 /* color palette from <https://github.com/vuejs/theme> */
 
 
-/* semantic color variables for this project */
+/* semant ic color variables for this project */
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
-:root {
+ :root {
     --font-size: 22px;
     --font-family: 'Josefin Sans', sans-serif;
     --font-weight-normal: 400;
@@ -15,6 +15,7 @@
     --check-background: linear-gradient(to right bottom, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
     /* Light theme color variables */
     --very-light-gray: hsl(0, 0%, 98%);
+    --background-white: #fafafa;
     --very-light-gray-blue: hsl(236, 33%, 92%);
     --light-gray-blue: hsl(233, 11%, 84%);
     --dark-gray-blue: hsl(236, 9%, 61%);
@@ -29,18 +30,19 @@
     --most-dark-gray-blue: hsl(237, 14%, 26%);
 }
 
-:root.light-mode {
-    --color-background: var(--very-dark-blue);
-    --color-background-soft: var(--very-dark-desaturated-blue);
-    --font-color: var(--light-gray-blue);
-    --font-color-hover: var(--light-gray-blue-hover);
-    --font-color-line-through: var(--very-dark-gray-blue);
+ :root.light-mode {
+    --color-background: var( --background-white);
+    --color-background-soft: white;
+    --font-color: var(--dark-gray-blue);
+    --font-color-hover: var(--very-dark-gray-blue);
+    --font-color-line-through: #acacb0;
     --header-font-color: white;
     --toggle-theme-image: url("src/assets/images/icon-moon.svg");
-    --background-image: url("src/assets/images/bg-desktop-light.jpg")
+    --background-image: url("src/assets/images/bg-desktop-light.jpg");
+    --check-background-empty: linear-gradient(to right bottom, var(--font-color-line-through), var(--font-color-line-through));
 }
 
-:root.dark-mode {
+ :root.dark-mode {
     --color-background: var(--very-dark-blue);
     --color-background-soft: var(--very-dark-desaturated-blue);
     --font-color: var(--light-gray-blue);
@@ -49,9 +51,13 @@
     --header-font-color: white;
     --toggle-theme-image: url("src/assets/images/icon-sun.svg");
     --background-image: url("src/assets/images/bg-desktop-dark.jpg");
+    --check-background-empty: linear-gradient(to right bottom, var(--font-color-line-through), var(--font-color-line-through));
 }
 
 @media (max-width: 375px) {
+     :root {
+        --font-size: 18px;
+    }
      :root.light-mode {
         --background-image: url("src/assets/images/bg-mobile-light.jpg");
     }
@@ -82,4 +88,10 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
+}
+
+@media (max-width: 1440px) {
+    body {
+        background-size: initial;
+    }
 }
