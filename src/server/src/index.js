@@ -1,15 +1,16 @@
+require("dotenv").config()
+const package = require('../package.json')
 const express = require("express")
-const port = 3080
 const bodyParser = require('body-parser')
 const mongoose = require("mongoose")
-const package = require('../package.json')
 const http = require("http")
 const { TaskRouter } = require("./routes")
 
+const { env: { PORT, DB_URL } } = process
 
 const app = express()
 
-mongoose.connect("mongodb://localhost:27017/affluence-todo")
+mongoose.connect(DB_URL)
     .then(() => {
         app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
@@ -23,8 +24,8 @@ mongoose.connect("mongodb://localhost:27017/affluence-todo")
 
         app.use('/api/tasks', TaskRouter)
 
-        http.createServer(app).listen(port, () => {
-            console.log(`${package.name} ${package.version} running on port ${port}`)
+        http.createServer(app).listen(PORT, () => {
+            console.log(`${package.name} ${package.version} running on port ${PORT}`)
         })
     })
     .catch(console.error)
