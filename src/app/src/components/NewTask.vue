@@ -1,5 +1,6 @@
 <script >
 const { VITE_API_URL } = import.meta.env
+import axios from "axios"
 
 export default {
     emits: ["creation"],
@@ -22,24 +23,22 @@ export default {
         },
         async submit(e) {
             e.preventDefault();
-            let res = await fetch(
+            let res = await axios.post(
                 VITE_API_URL + "tasks",
                 {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        title: this.title,
-                        status: this.status
-                    })
+                    title: this.title,
+                    status: this.status
                 }
             )
-            if (res.status == 200) {
+            .catch((error=> {
+                return error.toJSON()
+            }))
+
+            if (res.status == 201) {
                 this.clearTask()
                 this.$emit("creation")
             } else {
-                //Show error popup
+                window.alert("Task could not be created")
             }
         }
     },
@@ -65,8 +64,8 @@ form {
     padding: 1em 1.5em;
     background-color: var(--color-background-soft);
     border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
-    box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 375px) {

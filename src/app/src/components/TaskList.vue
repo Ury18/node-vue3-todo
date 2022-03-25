@@ -1,6 +1,7 @@
 <script >
 import Task from './Task.vue'
 const { VITE_API_URL } = import.meta.env
+import axios from "axios"
 
 export default {
     components: {
@@ -18,10 +19,10 @@ export default {
     computed: {
         filteredTasks() {
             return this.activeFilter == "all"
-            ? this.tasks
-            : this.activeFilter == "active"
-            ? this.activeTasks
-            : this.completedTasks
+                ? this.tasks
+                : this.activeFilter == "active"
+                ? this.activeTasks
+                : this.completedTasks
         },
         completedTasks() {
             return this.tasks.filter((task) => task.status == "completed")
@@ -42,16 +43,16 @@ export default {
             e.preventDefault()
             let completedTasksIds = this.completedTasks.map((task) => task.id)
             try {
-                let res = await fetch(
+                let res = await axios.delete(
                     VITE_API_URL + "tasks/",
                     {
-                        method: "DELETE",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify(completedTasksIds)
+                        data: completedTasksIds
                     }
                 )
+                .catch((error => {
+                    return error.toJSON()
+                }))
+
                 if (res.status == 200) {
                     this.$emit("update")
                 } else {
@@ -91,8 +92,8 @@ export default {
 ul {
     padding-left: 0;
     list-style: none;
-    -webkit-box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
-    box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
 }
 
 .list-options {
@@ -157,7 +158,6 @@ button:hover {
 .filters[active-filter="completed"] button[value="completed"] {
     color: var(--font-color-hover);
     color: var(--bright-blue);
-
 }
 .filters.mobile {
     display: none;
@@ -170,16 +170,15 @@ button:hover {
     padding: 1em 1.5em;
     background-color: var(--color-background-soft);
     border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
-    box-shadow: 0px 0px 24px 5px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 24px 5px rgba(0, 0, 0, 0.2);
 }
 
 .filters.mobile button {
     flex: 0;
 }
 
-
-@media(max-width: 590px) {
+@media (max-width: 590px) {
     .filters.mobile {
         display: flex;
     }

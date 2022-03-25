@@ -1,5 +1,6 @@
 <script >
 const { VITE_API_URL } = import.meta.env
+import axios from "axios"
 
 export default {
     emits: ["update"],
@@ -18,18 +19,16 @@ export default {
             e.preventDefault()
             const newStatus = this.status == "active" ? "completed" : "active"
             try {
-                let res = await fetch(
+                let res = await axios.put(
                     VITE_API_URL + `tasks/${this.id}`,
                     {
-                        method: "PUT",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            status: newStatus
-                        })
+                        status: newStatus
                     }
                 )
+                .catch((error => {
+                    return error.toJSON()
+                }))
+
                 if (res.status == 200) {
                     this.$emit("update")
                     this.status = newStatus
@@ -44,12 +43,11 @@ export default {
             e.preventDefault()
             try {
 
-                let res = await fetch(
-                    VITE_API_URL + `tasks/${this.id}`,
-                    {
-                        method: "DELETE",
-                    }
-                )
+                let res = await axios.delete(VITE_API_URL + `tasks/${this.id}`)
+                .catch((error => {
+                    return error.toJSON()
+                }))
+
                 if (res.status == 200) {
                     this.$emit("update")
                 } else {
@@ -90,13 +88,13 @@ form {
     border-bottom: 1px solid var(--font-color-line-through);
 }
 
-@media(max-width: 375px) {
+@media (max-width: 375px) {
     form {
-        padding:  0.7em 1em;
+        padding: 0.7em 1em;
     }
 }
 
-li:first-child form{
+li:first-child form {
     border-radius: 5px 5px 0 0;
 }
 
