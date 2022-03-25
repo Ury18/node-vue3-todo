@@ -1,4 +1,6 @@
 <script >
+const { VITE_API_URL } = import.meta.env
+
 export default {
     emits: ["update"],
     props: {
@@ -17,7 +19,7 @@ export default {
             const newStatus = this.status == "active" ? "completed" : "active"
             try {
                 let res = await fetch(
-                    `http://localhost:3080/api/tasks/${this.id}`,
+                    VITE_API_URL + `tasks/${this.id}`,
                     {
                         method: "PUT",
                         headers: {
@@ -43,7 +45,7 @@ export default {
             try {
 
                 let res = await fetch(
-                    `http://localhost:3080/api/tasks/${this.id}`,
+                    VITE_API_URL + `tasks/${this.id}`,
                     {
                         method: "DELETE",
                     }

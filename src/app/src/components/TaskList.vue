@@ -1,6 +1,6 @@
 <script >
 import Task from './Task.vue'
-
+const { VITE_API_URL } = import.meta.env
 
 export default {
     components: {
@@ -43,7 +43,7 @@ export default {
             let completedTasksIds = this.completedTasks.map((task) => task.id)
             try {
                 let res = await fetch(
-                    `http://localhost:3080/api/tasks/`,
+                    VITE_API_URL + "tasks/",
                     {
                         method: "DELETE",
                         headers: {

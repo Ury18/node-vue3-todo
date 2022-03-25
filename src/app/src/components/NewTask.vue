@@ -1,4 +1,6 @@
 <script >
+const { VITE_API_URL } = import.meta.env
+
 export default {
     emits: ["creation"],
     data() {
@@ -21,7 +23,7 @@ export default {
         async submit(e) {
             e.preventDefault();
             let res = await fetch(
-                "http://localhost:3080/api/tasks",
+                VITE_API_URL + "tasks",
                 {
                     method: "POST",
                     headers: {

@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 import NewTask from './components/NewTask.vue'
 import TaskList from './components/TaskList.vue'
+const { VITE_API_URL } = import.meta.env
 
 export default {
   components: {
@@ -16,9 +17,8 @@ export default {
   },
   methods: {
     async fetchTasks() {
-      console.log("here")
       const res = await fetch(
-        "http://localhost:3080/api/tasks"
+        VITE_API_URL + "tasks"
       )
       this.tasks = await res.json()
     }
@@ -34,8 +34,8 @@ export default {
 <template>
   <Header />
   <main>
-    <NewTask @creation="fetchTasks"/>
-    <TaskList :tasks="tasks" @update="fetchTasks"/>
+    <NewTask @creation="fetchTasks" />
+    <TaskList :tasks="tasks" @update="fetchTasks" />
   </main>
 </template>
 
