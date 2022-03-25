@@ -9,7 +9,7 @@ taskRouter.route("/")
         try {
             logic.getTasks()
                 .then((tasks) => {
-                    res.status(201).json(tasks)
+                    res.status(200).json(tasks)
                 })
                 .catch(({ message }) => {
                     res.status(400).json({ error: message })
@@ -24,7 +24,7 @@ taskRouter.route("/")
         try {
             logic.createTask(req.body)
                 .then((task) => {
-                    res.status(200).json(task)
+                    res.status(201).json(task)
                 })
                 .catch(({ message }) => {
                     res.status(400).json({ error: message })
