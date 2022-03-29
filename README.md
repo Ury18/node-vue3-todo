@@ -1,47 +1,69 @@
-### Objective
+# Oriol Escolar's Todo Assignment
 
-Your challenge is to build out this full-stack todo app and get it looking as close to the design as possible.
+In this document I will give a bit of a techincal breakdown of the technologies I used and instructions to start and test everything.
 
-### Brief
+## Structure
 
-Using Node.js and Vue.js, your task is to build out the project to the designs inside the `/design` folder. The designs are in JPG static format. This will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. There is also a `style-guide.md` file, which contains the information you'll need, such as color palette and fonts.
+The project is separated in two folders:
 
-**Client Side**
+- App (Frontend)
+- Server (Backend)
 
-Please use Vue.js as a frontend framework. Feel free to use or not use any additional framework or library on top of Vue.
+## App
 
-Your users should be able to:
+To develop the app I've used Vue with Vite, and for the tesitng I've used Vitest.
 
--   Add new todos to the list
--   Mark todos as complete
--   Delete todos from the list
--   Filter by all/active/complete todos
--   Clear all completed todos
--   See hover states for all interactive elements on the page
--   **Bonus**: Toggle light and dark mode
--   **Bonus**: Drag and drop to reorder items on the list
+To start the app execute the following command:
 
-**Server Side**
+```sh
+npm run dev
+```
 
-Please use Node.js. Feel free to use or not use any additional framework or library on top of Node.js.
+To test the app execute the following command:
 
--   Design a simple API for persisting state on the server side
--   Implement routes for all listed **CRUD** operations
--   No authentication / session management is required. Imagine you're building this application for a single user (yourself)
+```sh
+npm run test
+```
 
-### Evaluation Criteria
+To see the test coverage of the app execute the following command:
 
--   Show us your work through your commit history
--   We're looking for you to produce working code, with enough room to demonstrate how to structure components in a small program
--   Completeness: did you complete the features?
--   Correctness: does the functionality act in sensible, thought-out ways?
--   Maintainability: is it written in a clean, maintainable way?
--   Testing: is the system adequately tested?
+```sh
+npm run test-coverage
+```
 
-### CodeSubmit
+## Server
 
-Please organize, design, test and document your code as if it were going into production - then push your changes to the master branch. After you have pushed your code, you may submit the assignment on the assignment page.
+To develop the Server I've used NodeJS with Express framework and MongoDB with Mongoose framework. For the testing of the server logic I've used mocha.
 
-All the best and happy coding,
+To start the app execute the following command:
 
-The Affluent Team
+```sh
+npm run start
+```
+
+To test the app execute the following command:
+
+```sh
+npm run test
+```
+
+To see the test coverage of the app execute the following command:
+
+```sh
+npm run test-coverage
+```
+
+
+## Comments
+
+I've added the server and app `.env` files just for demonstration, in real environments these files should not be in the repository.
+
+## Things I would have liked to do / improved
+
+For the server side, in an ideal case I would have also tested the router and not only the model's logic.
+
+As for the App, as I told Yon, I've mainly worked with ReactJS and did some tests out of curiosity with Vue2, so I've faced some issues that I haven't been able to figure out with the limited time I had available. The main issues / things I would have liked to do were:
+
+- **Using SCSS:** I tried to use scss instead of basic css. I managed to import scss files but these files weren't applying to the correct scope, affecting all the site instead of just the components, so after some time trying to make it work, I ended up going with basic css.
+
+- **Better Vue testing:** As I've never really worked with Vue outside my own curiosity, it was the first time I tried testing Vue components. I decided to use Vitest for this, and managed to test some things. I eventually faced problems when trying to test api calls and it kept me from testing all the components in depth. Again, in an ideal case, this would not have been an issue without time restrictions .
